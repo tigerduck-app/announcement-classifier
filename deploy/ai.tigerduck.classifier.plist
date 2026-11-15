@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  TigerDuck course-announcement classifier (scripts/serve.py, e5-base, CPU).
+
+  Runs native on the host beside ai.tigerduck.llm; the backend container reaches it through
+  host.docker.internal on port 40002. It has no auth, so keep the macOS firewall closed to the LAN.
+
+  Install (paths assume ~/models/tigerduck/announcement-classifier holds scripts/, the model dir
+  and a .venv with torch and transformers):
+    cp deploy/ai.tigerduck.classifier.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$UID ~/Library/LaunchAgents/ai.tigerduck.classifier.plist
+    curl -s localhost:40002/health
+
+  Tear down:
+    launchctl bootout gui/$UID ~/Library/LaunchAgents/ai.tigerduck.classifier.plist
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ai.tigerduck.classifier</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/xinshoutw/models/tigerduck/announcement-classifier/.venv/bin/python</string>
+        <string>/Users/xinshoutw/models/tigerduck/announcement-classifier/scripts/serve.py</string>
+        <string>/Users/xinshoutw/models/tigerduck/announcement-classifier/model</string>
+        <string>--host</string>
+        <string>0.0.0.0</string>
+        <string>--port</string>
+        <string>40002</string>
+        <string>--threads</string>
+        <string>2</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/xinshoutw/Library/Logs/tigerduck-classifier.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/xinshoutw/Library/Logs/tigerduck-classifier.err.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>Nice</key>
+    <integer>5</integer>
+</dict>
+</plist>

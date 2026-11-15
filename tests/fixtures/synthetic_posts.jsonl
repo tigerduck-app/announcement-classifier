@@ -1,0 +1,12 @@
+{"subject": "Class cancelled this Thursday", "message": "<p>Hi all,</p><p>Because of the departmental retreat, <b>Thursday's lecture is cancelled</b>. We will pick up Chapter 4 next week.</p>"}
+{"subject": "本週五停課", "message": "<p>各位同學好，</p><p>因老師出差，<strong>本週五的「演算法概論」停課一次</strong>，請同學自行複習第三章。</p>"}
+{"subject": "期中考時間地點", "message": "<p>期中考將於 <b>11/12（四）10:20</b> 在 <a href=\"https://example.edu/room\">Room B-204</a> 舉行，範圍為第 1 至 5 章，可攜帶一張 A4 手寫小抄。</p>"}
+{"subject": "Midterm exam moved", "message": "<p>The midterm originally on Nov 10 is <b>postponed to Nov 17, 14:00</b>, same room (Hall C-101). Coverage is unchanged.</p>"}
+{"subject": "作業三發佈", "message": "<p>作業三已發佈，內容為實作二元搜尋樹。請於 <b>12/3 23:59</b> 前上傳 PDF 與原始碼至課程平台。</p><ul><li>兩人一組</li><li>需附測試結果</li></ul>"}
+{"subject": "HW2 deadline extended", "message": "<p>Due to the server outage, the deadline for <b>HW2 is extended to Monday 23:59</b>. Late submissions after that will not be accepted.</p>"}
+{"subject": "期中成績公布", "message": "<p>期中考成績已上傳至系統，請同學上線查詢。如有疑問，週三 15:00 在研究室 D-310 可查看考卷。</p>"}
+{"subject": "Final project grades released", "message": "<p>Final project grades are now posted. If you want to review your report, please see the TA during office hours.</p>"}
+{"subject": "第六章投影片", "message": "<p>第六章投影片與課堂錄影連結已放在課程頁面，請自行下載。</p><p>附件：<a href=\"https://example.edu/ch6.pdf\">ch6.pdf</a></p>"}
+{"subject": "Lecture notes and reading list", "message": "<p>The slides for Week 8 and the recommended reading list are attached. Please read the two papers before the next class.</p>"}
+{"subject": "下週改為線上上課", "message": "<p>下週二課程改以 Google Meet 線上進行，連結將於上課前一小時寄出。本次會點名，請準時登入。</p>"}
+{"subject": "期末問卷", "message": "<p>請於 12/20 前填寫本學期教學意見調查，您的回饋對課程改進很重要，謝謝。</p>"}

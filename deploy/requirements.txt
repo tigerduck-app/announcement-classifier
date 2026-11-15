@@ -1,0 +1,5 @@
+# Runtime for scripts/serve.py (the versions the model was trained and tested with).
+torch==2.15.0
+transformers==5.23.0
+beautifulsoup4==4.15.0
+html2text==2025.4.15
