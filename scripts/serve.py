@@ -1,7 +1,7 @@
 """Serve the announcement classifier over HTTP for the backend.
 
 Run: .venv/bin/python scripts/serve.py <model dir> [--host 127.0.0.1] [--port 40002] [--threads 2] [--device cpu]
-GET  /health       {"status": "ok", "labels": [...], "threshold": 0.35}
+GET  /health       {"status": "ok", "labels": [...], "threshold": 0.35, "release": "model-2026-11-15"}
 POST /v1/classify  {"posts": [{"subject": "<Moodle subject>", "message": "<Moodle HTML>"}, ...]}
                 or {"texts": ["<title>\n\n<Markdown content>", ...]}, at most MAX_TEXTS either way
   -> {"results": [{"labels": [...], "scores": {"exam_info": 0.97, ...}}, ...]}
@@ -15,6 +15,7 @@ import json
 import sys
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
 import torch
 
@@ -50,7 +51,13 @@ def parse_body(body: bytes) -> tuple[list[str], bool] | None:
     return None
 
 
-def make_handler(clf):
+def read_release(model_dir: str) -> str | None:
+    """The release tag deploy/install.sh wrote next to the weights, or None for a local model."""
+    path = Path(model_dir) / "RELEASE"
+    return path.read_text(encoding="utf-8").strip() if path.exists() else None
+
+
+def make_handler(clf, release: str | None = None):
     lock = threading.Lock()
 
     class Handler(BaseHTTPRequestHandler):
@@ -65,7 +72,7 @@ def make_handler(clf):
         def do_GET(self) -> None:
             if self.path != "/health":
                 return self.send(404, {"error": "not found"})
-            self.send(200, {"status": "ok", "labels": clf.labels, "threshold": clf.threshold})
+            self.send(200, {"status": "ok", "labels": clf.labels, "threshold": clf.threshold, "release": release})
 
         def do_POST(self) -> None:
             if self.path != "/v1/classify":
@@ -96,7 +103,7 @@ def main() -> int:
     args = ap.parse_args()
     torch.set_num_threads(args.threads)
     clf = Classifier(args.model_dir).to(args.device)
-    server = ThreadingHTTPServer((args.host, args.port), make_handler(clf))
+    server = ThreadingHTTPServer((args.host, args.port), make_handler(clf, read_release(args.model_dir)))
     print(f"serving {args.model_dir} on {args.host}:{args.port}", flush=True)
     server.serve_forever()
     return 0

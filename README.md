@@ -67,7 +67,7 @@
 `scripts/serve.py` 提供標準函式庫的 HTTP 服務，一次只算一個請求，不記錄請求內容，沒有驗證，請只開在受信任的網路。
 
 ```
-GET  /health       -> {"status": "ok", "labels": [...], "threshold": 0.35}
+GET  /health       -> {"status": "ok", "labels": [...], "threshold": 0.35, "release": "model-2026-11-15"}
 POST /v1/classify  {"posts": [{"subject": "...", "message": "<Moodle HTML>"}, ...]}
                 or {"texts": ["<title>\n\n<Markdown content>", ...]}     (at most 64 items)
   -> {"results": [{"labels": ["exam_info"], "scores": {"exam_info": 0.97, ...}}, ...]}

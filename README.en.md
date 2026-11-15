@@ -67,7 +67,7 @@ One global threshold, 0.35 (`threshold.json`). Per label:
 `scripts/serve.py` is a standard-library HTTP server. It scores one request at a time, never logs request bodies and has no authentication, so expose it only on a trusted network.
 
 ```
-GET  /health       -> {"status": "ok", "labels": [...], "threshold": 0.35}
+GET  /health       -> {"status": "ok", "labels": [...], "threshold": 0.35, "release": "model-2026-11-15"}
 POST /v1/classify  {"posts": [{"subject": "...", "message": "<Moodle HTML>"}, ...]}
                 or {"texts": ["<title>\n\n<Markdown content>", ...]}     (at most 64 items)
   -> {"results": [{"labels": ["exam_info"], "scores": {"exam_info": 0.97, ...}}, ...]}

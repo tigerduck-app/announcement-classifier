@@ -15,6 +15,7 @@ if command -v sha256sum > /dev/null; then
 else
   (cd "${MODEL}" && shasum -a 256 -c SHA256SUMS)
 fi
+printf '%s\n' "${TAG}" > "${MODEL}/RELEASE"
 
 # The version the model was trained and tested with; uv downloads it when missing.
 uv venv --python 3.13 "${ROOT}/.venv"
