@@ -77,6 +77,8 @@ POST /v1/classify  {"posts": [{"subject": "...", "message": "<Moodle HTML>"}, ..
 
 ## Deploy
 
+Needs Python 3.13 (`install.sh` creates it with uv, which downloads it when missing), `uv` and a signed-in `gh`.
+
 A release holds `model.safetensors`, `config.json`, `tokenizer.json`, `tokenizer_config.json`, `threshold.json`, `eval.json` and `SHA256SUMS`.
 
 ```bash

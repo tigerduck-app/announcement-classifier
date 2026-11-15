@@ -77,6 +77,8 @@ POST /v1/classify  {"posts": [{"subject": "...", "message": "<Moodle HTML>"}, ..
 
 ## 部署
 
+需要 Python 3.13（`install.sh` 會用 uv 建立，沒有時 uv 會自動下載）、`uv` 與已登入的 `gh`。
+
 Release 附上 `model.safetensors`、`config.json`、`tokenizer.json`、`tokenizer_config.json`、`threshold.json`、`eval.json` 與 `SHA256SUMS`。
 
 ```bash

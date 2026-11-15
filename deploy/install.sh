@@ -10,8 +10,13 @@ MODEL="${ROOT}/model"
 
 mkdir -p "${MODEL}"
 gh release download "${TAG}" --repo "${REPO}" --dir "${MODEL}" --clobber
-(cd "${MODEL}" && shasum -a 256 -c SHA256SUMS)
+if command -v sha256sum > /dev/null; then
+  (cd "${MODEL}" && sha256sum -c SHA256SUMS)
+else
+  (cd "${MODEL}" && shasum -a 256 -c SHA256SUMS)
+fi
 
-uv venv "${ROOT}/.venv"
+# The version the model was trained and tested with; uv downloads it when missing.
+uv venv --python 3.13 "${ROOT}/.venv"
 uv pip install --python "${ROOT}/.venv/bin/python" -r "${ROOT}/deploy/requirements.txt"
 "${ROOT}/.venv/bin/python" "${ROOT}/scripts/test_serve.py" "${MODEL}"
